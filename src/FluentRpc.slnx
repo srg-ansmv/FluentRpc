@@ -1,0 +1,13 @@
+﻿<Solution>
+  <Folder Name="/lib/">
+    <Project Path="lib\FluentRpc.Abstractions\FluentRpc.Abstractions.csproj" Type="Classic C#" />
+    <Project Path="lib\FluentRpc.Frames.Abstraction\FluentRpc.Frames.Abstraction.csproj" Type="Classic C#" />
+    <Project Path="lib\FluentRpc.Frames.Common\FluentRpc.Frames.Common.csproj" Type="Classic C#" />
+    <Project Path="lib\FluentRpc.Server.Abstraction\FluentRpc.Server.Abstraction.csproj" Type="Classic C#" />
+    <Project Path="lib\FluentRpc.Server.Tcp\FluentRpc.Server.Tcp.csproj" Type="Classic C#" />
+    <Project Path="lib\FluentRpc.Tcp\FluentRpc.Tcp.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests\FluentRpc.ConsolePlayground\FluentRpc.ConsolePlayground.csproj" />
+  </Folder>
+</Solution>
