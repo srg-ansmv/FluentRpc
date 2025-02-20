@@ -34,7 +34,7 @@ public class DynamicSizedFrameReader : IFrameReader<DynamicFrame, IConnection, D
 
         if (!packetResult.IsOk(out var packet))
         {
-            return packetResult.Fail<DynamicFrame>();
+            return packetResult.Fail<ReadPacket, DynamicFrame>();
         }
 
         var (sizeBuffer, size) = packet.ReleaseOwnership();

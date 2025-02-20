@@ -39,7 +39,7 @@ public class EolFrameReader : IFrameReader<EolFrame, IConnection, EolFrameReadOp
 
             if (!packetResult.IsOk(out var readPacket))
             {
-                return packetResult.Fail<EolFrame>();
+                return packetResult.Fail<ReadPacket, EolFrame>();
             }
 
             var eolSpan = eol.Span;

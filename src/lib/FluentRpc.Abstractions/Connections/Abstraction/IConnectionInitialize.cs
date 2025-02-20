@@ -4,5 +4,5 @@ namespace FluentRpc.Connections.Abstraction;
 
 public interface IConnectionInitialize
 {
-    Task<Result> InitializeAsync(CancellationToken cancellationToken = default);
+    Task<UnitResult> InitializeAsync(CancellationToken cancellationToken = default);
 }

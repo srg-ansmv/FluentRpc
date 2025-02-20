@@ -7,7 +7,7 @@ public interface IConnection
 {
     Task<Result<ReadPacket>> ReceiveBytes(ReceiveBytesOptions options, CancellationToken cancellationToken = default);
 
-    Task<Result> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default);
+    Task<UnitResult> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default);
 
     Task<Result<ReadPacket>> ReceiveAtLeastBytes(
         ReceiveAtLeastBytesOptions options,

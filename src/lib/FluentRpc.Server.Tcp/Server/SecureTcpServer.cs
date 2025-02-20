@@ -18,17 +18,17 @@ public class SecureTcpServer: IServer<ServerSslTcpConnection>
         _socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
     }
 
-    public ValueTask<Result> Listen(EndPoint endPoint, CancellationToken cancellationToken = default)
+    public ValueTask<UnitResult> Listen(EndPoint endPoint, CancellationToken cancellationToken = default)
     {
         try
         {
             _socket.Bind(endPoint);
             _socket.Listen();
-            return ValueTask.FromResult(Result.Ok());
+            return ValueTask.FromResult(UnitResult.Ok);
         }
         catch (Exception e)
         {
-            return ValueTask.FromResult(Result.Failure(e));
+            return ValueTask.FromResult(UnitResult.Failure(e));
         }
     }
 

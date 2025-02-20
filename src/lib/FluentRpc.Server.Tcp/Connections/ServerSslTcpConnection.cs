@@ -32,16 +32,16 @@ public class ServerSslTcpConnection : IConnection, IConnectionInitialize
         }
     }
 
-    public async Task<Result> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
+    public async Task<UnitResult> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
     {
         try
         {
             await _sslStream.WriteAsync(packet.Memory, cancellationToken);
-            return Result.Ok();
+            return UnitResult.Ok;
         }
         catch (Exception e)
         {
-            return Result.Failure(e);
+            return UnitResult.Failure(e);
         }
     }
 
@@ -64,9 +64,11 @@ public class ServerSslTcpConnection : IConnection, IConnectionInitialize
         }
     }
 
-    public Task<Result> InitializeAsync(CancellationToken cancellationToken = default)
+    public async Task<UnitResult> InitializeAsync(CancellationToken cancellationToken = default)
     {
-        return _certificateProvider.ProvideAsync(cancellationToken).Switch(
+        var certResult = await _certificateProvider.ProvideAsync(cancellationToken);
+        
+        return await certResult.FoldAsync(
             async ok =>
             {
                 try
@@ -74,15 +76,15 @@ public class ServerSslTcpConnection : IConnection, IConnectionInitialize
                     await _sslStream.AuthenticateAsServerAsync(ok,
                         clientCertificateRequired: false,
                         checkCertificateRevocation: true);
-                    return Result.Ok();
+                    return UnitResult.Ok;
                 }
                 catch (Exception e)
                 {
-                    return Result.Failure(e);
+                    return UnitResult.Failure(e);
                 }
             },
-            err => Task.FromResult(Result.Error(err)),
-            ex => Task.FromResult(Result.Failure(ex))
+            err => Task.FromResult(UnitResult.Error(err)),
+            ex => Task.FromResult(UnitResult.Failure(ex))
         );
     }
 }

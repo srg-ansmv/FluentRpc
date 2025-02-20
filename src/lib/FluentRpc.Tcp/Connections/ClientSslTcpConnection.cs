@@ -42,16 +42,16 @@ public class ClientSslTcpConnection : IConnection, IConnectionInitialize
         }
     }
 
-    public async Task<Result> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
+    public async Task<UnitResult> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
     {
         try
         {
             await _sslStream.WriteAsync(packet.Memory, cancellationToken);
-            return Result.Ok();
+            return UnitResult.Ok;
         }
         catch (Exception e)
         {
-            return Result.Failure(e);
+            return UnitResult.Failure(e);
         }
     }
 
@@ -74,16 +74,16 @@ public class ClientSslTcpConnection : IConnection, IConnectionInitialize
         }
     }
 
-    public async Task<Result> InitializeAsync(CancellationToken cancellationToken = default)
+    public async Task<UnitResult> InitializeAsync(CancellationToken cancellationToken = default)
     {
         try
         {
             await _sslStream.AuthenticateAsClientAsync(_options.Value.Server);
-            return Result.Ok();
+            return UnitResult.Ok;
         }
         catch (Exception e)
         {
-            return Result.Failure(e);
+            return UnitResult.Failure(e);
         }
     }
 }

@@ -28,16 +28,16 @@ public class TcpConnection : IConnection, IDisposable
         }
     }
 
-    public async Task<Result> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
+    public async Task<UnitResult> WriteBytes(WritePacket packet, CancellationToken cancellationToken = default)
     {
         try
         {
             await _socket.WriteAsync(packet.Memory, cancellationToken);
-            return Result.Ok();
+            return UnitResult.Ok;
         }
         catch (Exception e)
         {
-            return Result.Failure(e);
+            return UnitResult.Failure(e);
         }
     }
 
@@ -51,7 +51,7 @@ public class TcpConnection : IConnection, IDisposable
             var bufferSize = options.AtLeast + options.RestBufferSize;
             var owner = options.Pool?.Rent(bufferSize) ?? new NotPooledMemoryOwner(new byte[bufferSize]);
             var readCount = await _socket.ReadAtLeastAsync(owner.Memory, options.AtLeast, true, cancellationToken);
-            
+
             return Result<ReadPacket>.Ok(new(readCount, owner));
         }
         catch (Exception e)
