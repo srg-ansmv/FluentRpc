@@ -10,3 +10,5 @@ public interface IServer<TConnection>
     ValueTask<UnitResult> Listen(EndPoint endPoint, CancellationToken cancellationToken = default);
     Task<Result<TConnection>> AcceptClient(CancellationToken cancellationToken = default);
 }
+
+public interface IServer : IServer<IConnection>;

@@ -1,10 +1,13 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace FluentRpc.Common;
 
 public readonly record struct Error(string Code, string Reason)
 {
+    [DoesNotReturn]
     public T Throw<T>() => throw new InvalidOperationException($"[{Code}] with {Reason}");
+    [DoesNotReturn]
     public void Throw() => throw new InvalidOperationException($"[{Code}] with {Reason}");
 }
 

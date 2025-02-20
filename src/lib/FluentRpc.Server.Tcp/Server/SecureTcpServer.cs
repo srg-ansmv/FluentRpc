@@ -7,7 +7,7 @@ using FluentRpc.Tcp.Connections;
 
 namespace FluentRpc.Tcp.Server;
 
-public class SecureTcpServer: IServer<ServerSslTcpConnection>
+public class SecureTcpServer : IServer<ServerSslTcpConnection>
 {
     private readonly ICertificateProvider _certificateProvider;
     private readonly Socket _socket;

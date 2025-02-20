@@ -67,15 +67,17 @@ public class ServerSslTcpConnection : IConnection, IConnectionInitialize
     public async Task<UnitResult> InitializeAsync(CancellationToken cancellationToken = default)
     {
         var certResult = await _certificateProvider.ProvideAsync(cancellationToken);
-        
+
         return await certResult.FoldAsync(
             async ok =>
             {
                 try
                 {
-                    await _sslStream.AuthenticateAsServerAsync(ok,
+                    await _sslStream.AuthenticateAsServerAsync(
+                        ok,
                         clientCertificateRequired: false,
-                        checkCertificateRevocation: true);
+                        checkCertificateRevocation: true
+                    );
                     return UnitResult.Ok;
                 }
                 catch (Exception e)
